@@ -8,6 +8,8 @@ Előkészületek:
 
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Probarepo/cognitive_homework/gazebo_models/
 
+3. catkin_make parancs a catkin workspace-en belül
+
 Használat:
 1. nyissatok két terminált
 

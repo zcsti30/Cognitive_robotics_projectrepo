@@ -1,64 +1,59 @@
 #!/usr/bin/env python3
 
+import math
 import rospy
 import numpy
 #from std_msgs.msg import Int32  # Message type used in the node
+from visualization_msgs.msg import MarkerArray # Library for MarkerArray in Rviz
 from visualization_msgs.msg import Marker # Library for Marker in Rviz
 
-rospy.init_node('broken_line_pub')    # Init the node with name "publisher"
+rospy.init_node('broken_line_node')    # Init the node with a name
 
-marker_pub = rospy.Publisher('broken_line', Marker, queue_size=2) # We will publish to 'broken_line' topic
+marker_pub = rospy.Publisher('broken_line', MarkerArray, queue_size=100) # We will publish to 'broken_line' topic
 
-rospy.loginfo("broken_line_pub Python node has started and publishing data on broken_line")
+rospy.loginfo("broken_line_node Python node has started and publishing data on broken_line") # Info message when starting the node 
 
-rate = rospy.Rate(2)            # set the Hz
+rate = rospy.Rate(2)        # set the Hz of the operation of the node 
 
-#count = Int32()                 # Count is now a ROS Int32 type variable that is ready to be published
+count = 0
+MARKERS_MAX = 5
+markerArray = MarkerArray()
 
-#count.data = 0                  # Initializing count
+# Run the node until Ctrl-C is pressed
+while not rospy.is_shutdown():  
+   marker = Marker()
+   marker.header.frame_id = "odom"
+   marker.type = marker.SPHERE
+   marker.action = marker.ADD
+   marker.scale.x = 0.2
+   marker.scale.y = 0.2
+   marker.scale.z = 0.2
+   marker.color.a = 1.0
+   marker.color.r = 1.0
+   marker.color.g = 0.0
+   marker.color.b = 0.0
+   marker.pose.orientation.w = 1.0
+   marker.pose.position.x = count
+   marker.pose.position.y = count
+   marker.pose.position.z = 0 
 
+   # We add the new marker to the MarkerArray, removing the oldest
+   # marker from it when necessary
+   if(count > MARKERS_MAX-1):
+       markerArray.markers.pop(0)
 
-########################### Marker code ####################################
-marker = Marker()
+   markerArray.markers.append(marker)
 
-marker.header.frame_id = "odom"
-marker.header.stamp = rospy.Time.now()
+   # Renumber the marker IDs
+   id = 0
+   for m in markerArray.markers:
+       m.id = id
+       id += 1
 
-# set shape, Arrow: 0; Cube: 1 ; Sphere: 2 ; Cylinder: 3
-marker.type = 2
-marker.id = 0
+   # Publish the array     
+   marker_pub.publish(markerArray)
 
-# Set the scale of the marker
-marker.scale.x = 1.0
-marker.scale.y = 1.0
-marker.scale.z = 1.0
-
-# Set the color
-marker.color.r = 1.0
-marker.color.g = 0.0
-marker.color.b = 0.0
-marker.color.a = 1.0
-
-# Set the pose of the marker
-marker.pose.position.x = 0
-marker.pose.position.y = 0
-marker.pose.position.z = 0
-marker.pose.orientation.x = 0.0
-marker.pose.orientation.y = 0.0
-marker.pose.orientation.z = 0.0
-marker.pose.orientation.w = 1.0
-
-
-
-while not rospy.is_shutdown():  # Run the node until Ctrl-C is pressed
-
-    marker.header.stamp = rospy.Time.now()
-    marker.pose.position.x = 1
-    marker.pose.position.y = 1
+   count += 1
     
-
-    #marker_pub.publish(count)          # Publishing data on topic "publisher_topic"
-    marker_pub.publish(marker)
-    #count.data += 1
-        
-    rate.sleep()                # Wait until next iteration
+    # Wait until next iteration
+   rate.sleep()                

@@ -6,7 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /TF1/Frames1
-        - /Marker1
+        - /MarkerArray1
       Splitter Ratio: 0.594406008720398
     Tree Height: 191
   - Class: rviz/Selection
@@ -139,7 +139,7 @@ Visualization Manager:
       Value: true
       Visibility:
         Grid: true
-        Marker: true
+        MarkerArray: true
         Path: true
         RobotModel: true
         TF: true
@@ -169,13 +169,13 @@ Visualization Manager:
       Topic: /trajectory
       Unreliable: false
       Value: true
-    - Class: rviz/Marker
+    - Class: rviz/MarkerArray
       Enabled: true
       Marker Topic: broken_line
-      Name: Marker
+      Name: MarkerArray
       Namespaces:
         {}
-      Queue Size: 2
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:

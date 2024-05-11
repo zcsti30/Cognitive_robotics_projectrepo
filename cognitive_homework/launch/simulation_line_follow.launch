@@ -38,7 +38,7 @@
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find turtlebot3_mogi)/rviz/turtlebot3_line_follow.rviz"/>
+          args="-d $(find cognitive_homework)/rviz/homework_turtlebot3_line_follow.rviz"/>
   </group>
 
 </launch>

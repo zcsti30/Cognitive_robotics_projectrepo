@@ -88,10 +88,16 @@ for imagePath in imagePaths:
         label = 0
     elif label == 'right':
         label = 1
-    elif label == 'left':
+    elif label == 'lright':
         label = 2
-    else:
+    elif label == 'left':
         label = 3
+    elif label == 'lleft':
+        label = 4
+    elif label == 'tear':
+        label = 5
+    else:
+        label = 6
     labels.append(label)
     
     
@@ -102,8 +108,8 @@ labels = np.array(labels)
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 25% for testing
 (trainX, testX, trainY, testY) = train_test_split(data, labels, test_size=0.25, random_state=42)# convert the labels from integers to vectors
-trainY = to_categorical(trainY, num_classes=4)
-testY = to_categorical(testY, num_classes=4)
+trainY = to_categorical(trainY, num_classes=7)
+testY = to_categorical(testY, num_classes=7)
 
 
 # initialize the number of epochs to train for, initial learning rate,
@@ -115,7 +121,7 @@ BS      = 32
 
 # initialize the model
 print("[INFO] compiling model...")
-model = build_LeNet(width=image_size, height=image_size, depth=3, classes=4)
+model = build_LeNet(width=image_size, height=image_size, depth=3, classes=7)
 opt = Adam(learning_rate=INIT_LR, decay=DECAY)
 model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
  

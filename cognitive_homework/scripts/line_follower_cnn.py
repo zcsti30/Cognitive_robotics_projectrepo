@@ -34,7 +34,7 @@ session = InteractiveSession(config=config)
 rospy.init_node('line_follower')
 
 rospack = rospkg.RosPack()
-path = rospack.get_path('turtlebot3_mogi')
+path = rospack.get_path('cognitive_homework')
 model_path = path + "/network_model/model.best.h5"
 
 print("[INFO] Version:")
@@ -127,13 +127,22 @@ class cvThread(threading.Thread):
 
         if prediction == 0: # Forward
             self.cmd_vel.angular.z = 0
-            self.cmd_vel.linear.x = 0.1
-        elif prediction == 1: # Left
+            self.cmd_vel.linear.x = 0.4
+        elif prediction == 1: # right
+            self.cmd_vel.angular.z = -0.7
+            self.cmd_vel.linear.x = 0.15
+        elif prediction == 2: # lright
             self.cmd_vel.angular.z = -0.2
-            self.cmd_vel.linear.x = 0.05
-        elif prediction == 2: # Right
+            self.cmd_vel.linear.x = 0.3
+        elif prediction == 3: # left
+            self.cmd_vel.angular.z = 0.7
+            self.cmd_vel.linear.x = 0.15
+        elif prediction == 4: # lleft
             self.cmd_vel.angular.z = 0.2
-            self.cmd_vel.linear.x = 0.05
+            self.cmd_vel.linear.x = 0.3
+        elif prediction == 5: #tear
+            self.cmd_vel.angular.z= 0.0 
+            self.cmd_vel.linear.x = 1
         else: # Nothing
             self.cmd_vel.angular.z = 0.1
             self.cmd_vel.linear.x = 0.0

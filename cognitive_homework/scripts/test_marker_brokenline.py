@@ -3,7 +3,6 @@
 import math
 import rospy
 import numpy
-#from std_msgs.msg import Int32  # Message type used in the node
 from visualization_msgs.msg import MarkerArray # Library for MarkerArray in Rviz
 from visualization_msgs.msg import Marker # Library for Marker in Rviz
 
@@ -13,11 +12,19 @@ marker_pub = rospy.Publisher('broken_line', MarkerArray, queue_size=100) # We wi
 
 rospy.loginfo("broken_line_node Python node has started and publishing data on broken_line") # Info message when starting the node 
 
-rate = rospy.Rate(2)        # set the Hz of the operation of the node 
+rate = rospy.Rate(1)        # Set the Hz of the operation of the node 
 
 count = 0
-MARKERS_MAX = 5
+MARKERS_MAX = 100
 markerArray = MarkerArray()
+
+# Make sure that the timer has already been initialized
+testTime = 0
+while not testTime:
+    testTime = rospy.Time.now()
+
+# For testing
+increment=0
 
 # Run the node until Ctrl-C is pressed
 while not rospy.is_shutdown():  
@@ -25,6 +32,7 @@ while not rospy.is_shutdown():
    marker.header.frame_id = "odom"
    marker.type = marker.SPHERE
    marker.action = marker.ADD
+   marker.header.stamp = rospy.Time.now()
    marker.scale.x = 0.2
    marker.scale.y = 0.2
    marker.scale.z = 0.2
@@ -33,27 +41,48 @@ while not rospy.is_shutdown():
    marker.color.g = 0.0
    marker.color.b = 0.0
    marker.pose.orientation.w = 1.0
-   marker.pose.position.x = count
-   marker.pose.position.y = count
+   # For testing
+   increment += 1
+   marker.pose.position.x = increment
+   marker.pose.position.y = increment
    marker.pose.position.z = 0 
 
-   # We add the new marker to the MarkerArray, removing the oldest
-   # marker from it when necessary
+   # Remove oldest marker when reaching the maximum number of markers
    if(count > MARKERS_MAX-1):
        markerArray.markers.pop(0)
+       count -= 1
 
+   # Insert new marker
    markerArray.markers.append(marker)
+   count += 1
+
+   # Remove oldest marker when reaching timeout
+   currenttime = rospy.Time.now()
+   markertime = markerArray.markers[0].header.stamp
+   ## testing begin
+   difftime = currenttime.to_sec() - markertime.to_sec()
+   print(difftime)
+   ## testing end
+   if(currenttime.to_sec() - markertime.to_sec() > 7):
+       markerArray.markers.pop(0)
+       count -= 1
 
    # Renumber the marker IDs
    id = 0
    for m in markerArray.markers:
        m.id = id
-       id += 1
+       id += 1 
+
+   
+   
+   ## testing
+   for m in markerArray.markers:
+       print(m.id)
 
    # Publish the array     
    marker_pub.publish(markerArray)
-
-   count += 1
-    
+   
+   # Testing
+   print(count)
     # Wait until next iteration
    rate.sleep()                

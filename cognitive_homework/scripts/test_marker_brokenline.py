@@ -2,12 +2,13 @@
 
 import rospy
 from visualization_msgs.msg import MarkerArray # Library for MarkerArray in Rviz
-from visualization_msgs.msg import Marker # Library for Marker in Rviz
-from nav_msgs.msg import Odometry
+from visualization_msgs.msg import Marker      # Library for Marker in Rviz
+from nav_msgs.msg import Odometry              # Library to get robot position
+from geometry_msgs.msg import Twist            # Library to get robot velocity
 
 rospy.init_node('broken_line_node')    # Init the node with a name
 
-marker_pub = rospy.Publisher('broken_line', MarkerArray, queue_size=100) # We will publish to 'broken_line' topic
+marker_pub = rospy.Publisher('broken_line', MarkerArray, queue_size=1) # We will publish to 'broken_line' topic
 
 rospy.loginfo("broken_line_node Python node has started and publishing data on broken_line topic") # Info message when starting the node 
 
@@ -15,9 +16,9 @@ rate = rospy.Rate(10)        # Set the Hz of the operation of the node
 
 count = 0                    # Count the number of markers
 
-memorytime = 15              # Markers will be deleted after this time [sec]
+memorytime = 30              # Markers will be deleted after this time [sec]
 
-markerArray = MarkerArray()
+markerArray = MarkerArray()  # We will send this array to Rviz
 
 # Make sure that the timer has already been initialized
 testTime = 0
@@ -42,6 +43,17 @@ def odom_callback(msg):
     
 rospy.Subscriber("/odom", Odometry, odom_callback, queue_size=1)
 
+# We store the latest velocity data in this variable
+vel_data = Twist()
+
+# Callback function and subscribe for current velocity data
+# The code decides if there is broken line based on the speed
+def vel_callback(msg):
+    global vel_data
+    vel_data = msg
+
+rospy.Subscriber("/cmd_vel", Twist, vel_callback, queue_size=1)
+
 # Run the node until Ctrl-C is pressed
 while not rospy.is_shutdown():  
    # Delete previous markers on the map
@@ -65,8 +77,8 @@ while not rospy.is_shutdown():
    marker.pose.position.y = odom_data.pose.pose.position.y
    marker.pose.position.z = 0 
 
-   # Insert new marker
-   if(marker.pose.position.x != 0):
+   # Insert new marker when there is a broken line (only after initialization)
+   if(marker.pose.position.x != 0 and vel_data.linear.x == 0.05):
          markerArray.markers.append(marker)
          count += 1
 

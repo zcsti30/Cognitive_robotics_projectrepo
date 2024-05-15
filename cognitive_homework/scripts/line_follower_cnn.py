@@ -34,7 +34,7 @@ session = InteractiveSession(config=config)
 rospy.init_node('line_follower')
 
 rospack = rospkg.RosPack()
-path = rospack.get_path('turtlebot3_mogi')
+path = rospack.get_path('cognitive_homework')
 model_path = path + "/network_model/model.best.h5"
 
 print("[INFO] Version:")

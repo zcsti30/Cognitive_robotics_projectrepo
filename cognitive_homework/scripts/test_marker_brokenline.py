@@ -23,11 +23,23 @@ testTime = 0
 while not testTime:
     testTime = rospy.Time.now()
 
+# init delete markerArray and marker
+deleteArray = MarkerArray()
+deletemarker = Marker()
+deletemarker.header.frame_id = "odom"
+deletemarker.action = deletemarker.DELETEALL
+deletemarker.id = 0
+deleteArray.markers.append(deletemarker)
+
 # For testing
 increment=0
 
 # Run the node until Ctrl-C is pressed
 while not rospy.is_shutdown():  
+   # Delete previous markers on the map
+   marker_pub.publish(deleteArray)
+
+   # Creating new marker 
    marker = Marker()
    marker.header.frame_id = "odom"
    marker.type = marker.SPHERE
@@ -59,10 +71,7 @@ while not rospy.is_shutdown():
    # Remove oldest marker when reaching timeout
    currenttime = rospy.Time.now()
    markertime = markerArray.markers[0].header.stamp
-   ## testing begin
-   difftime = currenttime.to_sec() - markertime.to_sec()
-   print(difftime)
-   ## testing end
+
    if(currenttime.to_sec() - markertime.to_sec() > 7):
        markerArray.markers.pop(0)
        count -= 1
@@ -73,16 +82,8 @@ while not rospy.is_shutdown():
        m.id = id
        id += 1 
 
-   
-   
-   ## testing
-   for m in markerArray.markers:
-       print(m.id)
-
    # Publish the array     
    marker_pub.publish(markerArray)
    
-   # Testing
-   print(count)
     # Wait until next iteration
    rate.sleep()                

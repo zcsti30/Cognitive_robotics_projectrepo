@@ -10,12 +10,12 @@ rospy.init_node('broken_line_node')    # Init the node with a name
 
 marker_pub = rospy.Publisher('broken_line', MarkerArray, queue_size=100) # We will publish to 'broken_line' topic
 
-rospy.loginfo("broken_line_node Python node has started and publishing data on broken_line") # Info message when starting the node 
+rospy.loginfo("broken_line_node Python node has started and publishing data on broken_line topic") # Info message when starting the node 
 
-rate = rospy.Rate(1)        # Set the Hz of the operation of the node 
+rate = rospy.Rate(10)        # Set the Hz of the operation of the node 
 
-count = 0
-MARKERS_MAX = 100
+count = 0                   # Number of markers
+
 markerArray = MarkerArray()
 
 # Make sure that the timer has already been initialized
@@ -59,31 +59,28 @@ while not rospy.is_shutdown():
    marker.pose.position.y = increment
    marker.pose.position.z = 0 
 
-   # Remove oldest marker when reaching the maximum number of markers
-   if(count > MARKERS_MAX-1):
-       markerArray.markers.pop(0)
-       count -= 1
-
    # Insert new marker
    markerArray.markers.append(marker)
    count += 1
 
    # Remove oldest marker when reaching timeout
-   currenttime = rospy.Time.now()
-   markertime = markerArray.markers[0].header.stamp
+   if(count != 0):    
+      currenttime = rospy.Time.now()
+      markertime = markerArray.markers[0].header.stamp
 
-   if(currenttime.to_sec() - markertime.to_sec() > 7):
-       markerArray.markers.pop(0)
-       count -= 1
+      if(currenttime.to_sec() - markertime.to_sec() > 4):
+         markerArray.markers.pop(0)
+         count -= 1
 
    # Renumber the marker IDs
-   id = 0
-   for m in markerArray.markers:
-       m.id = id
-       id += 1 
+   if(count != 0):     
+      id = 0
+      for m in markerArray.markers:
+         m.id = id
+         id += 1 
 
-   # Publish the array     
-   marker_pub.publish(markerArray)
+      # Publish the array     
+      marker_pub.publish(markerArray)
    
-    # Wait until next iteration
+   # Wait until next iteration
    rate.sleep()                

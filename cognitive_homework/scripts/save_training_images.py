@@ -94,7 +94,7 @@ rospy.init_node('image_listener')
 
 withDisplay = bool(int(rospy.get_param('~with_display', 1)))
 rospack = rospkg.RosPack()
-path = rospack.get_path('turtlebot3_mogi')
+path = rospack.get_path('cognitive_homework')
 save_path = path + "/saved_images/"
 print("Saving files to: %s" % save_path)
 

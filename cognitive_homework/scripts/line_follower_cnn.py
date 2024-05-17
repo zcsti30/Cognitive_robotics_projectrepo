@@ -127,13 +127,22 @@ class cvThread(threading.Thread):
 
         if prediction == 0: # Forward
             self.cmd_vel.angular.z = 0
-            self.cmd_vel.linear.x = 0.1
-        elif prediction == 1: # Left
-            self.cmd_vel.angular.z = -0.2
-            self.cmd_vel.linear.x = 0.05
-        elif prediction == 2: # Right
-            self.cmd_vel.angular.z = 0.2
-            self.cmd_vel.linear.x = 0.05
+            self.cmd_vel.linear.x = 0.6
+        elif prediction == 1: # right
+            self.cmd_vel.angular.z = -0.8
+            self.cmd_vel.linear.x = 0.25
+        elif prediction == 2: # lright
+            self.cmd_vel.angular.z = -0.3
+            self.cmd_vel.linear.x = 0.4
+        elif prediction == 3: # left
+            self.cmd_vel.angular.z = 0.8
+            self.cmd_vel.linear.x = 0.25
+        elif prediction == 4: # lleft
+            self.cmd_vel.angular.z = 0.3
+            self.cmd_vel.linear.x = 0.4
+        elif prediction == 5: #tear
+            self.cmd_vel.angular.z= 0.0 
+            self.cmd_vel.linear.x = 0.26
         else: # Nothing
             self.cmd_vel.angular.z = 0.1
             self.cmd_vel.linear.x = 0.0

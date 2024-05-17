@@ -152,7 +152,7 @@
             <contact>
               <collide_without_contact>0</collide_without_contact>
               <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>0x2</collide_bitmask>
+              <collide_bitmask>2</collide_bitmask>
               <ode>
                 <soft_cfm>0</soft_cfm>
                 <soft_erp>0.2</soft_erp>
@@ -243,7 +243,7 @@
             <contact>
               <collide_without_contact>0</collide_without_contact>
               <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>0x0</collide_bitmask>
+              <collide_bitmask>0</collide_bitmask>
               <ode>
                 <soft_cfm>0</soft_cfm>
                 <soft_erp>0.2</soft_erp>
@@ -334,7 +334,7 @@
             <contact>
               <collide_without_contact>0</collide_without_contact>
               <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>0x0</collide_bitmask>
+              <collide_bitmask>0</collide_bitmask>
               <ode>
                 <soft_cfm>0</soft_cfm>
                 <soft_erp>0.2</soft_erp>
@@ -425,7 +425,7 @@
             <contact>
               <collide_without_contact>0</collide_without_contact>
               <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
-              <collide_bitmask>0x0</collide_bitmask>
+              <collide_bitmask>0</collide_bitmask>
               <ode>
                 <soft_cfm>0</soft_cfm>
                 <soft_erp>0.2</soft_erp>
@@ -451,10 +451,10 @@
       <pose>-3.09695 0.267839 1.9e-05 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>327 167000000</sim_time>
-      <real_time>382 46125173</real_time>
-      <wall_time>1714227581 122656216</wall_time>
-      <iterations>327167</iterations>
+      <sim_time>716 8000000</sim_time>
+      <real_time>733 33389535</real_time>
+      <wall_time>1715970811 614949971</wall_time>
+      <iterations>388841</iterations>
       <model name='curvedbox'>
         <pose>-2.41744 -0.59421 1.9e-05 0 -0 0</pose>
         <scale>0.029531 0.029531 0.029531</scale>
@@ -466,20 +466,20 @@
         </link>
       </model>
       <model name='curvedbox_clone'>
-        <pose>-1.00383 1.38184 -0.032793 0 -0 0</pose>
+        <pose>-1.04515 1.35294 0.000176 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link_0'>
-          <pose>-1.00383 1.38184 -0.032793 0 -0 0</pose>
+          <pose>-1.04515 1.35294 0.000176 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='curvedbox_clone_0'>
-        <pose>-3.07808 -0.09862 -0.027239 0 0 -1.55215</pose>
+        <pose>-2.36085 -0.066024 -0.001142 0 0 -1.55215</pose>
         <scale>1 1 1</scale>
         <link name='link_0'>
-          <pose>-3.07808 -0.09862 -0.027239 0 0 -1.55215</pose>
+          <pose>-2.36085 -0.066024 -0.001142 0 0 -1.55215</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>

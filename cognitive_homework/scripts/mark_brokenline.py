@@ -12,11 +12,11 @@ marker_pub = rospy.Publisher('broken_line', MarkerArray, queue_size=1) # We will
 
 rospy.loginfo("broken_line_node Python node has started and publishing data on broken_line topic") # Info message when starting the node 
 
-rate = rospy.Rate(10)        # Set the Hz of the operation of the node 
+rate = rospy.Rate(50)        # Set the Hz of the operation of the node 
 
 count = 0                    # Count the number of markers
 
-memorytime = 10               # Markers will be deleted after this time [sec]
+memorytime = 15               # Markers will be deleted after this time [sec]
 
 markerArray = MarkerArray()  # We will send this array to Rviz
 

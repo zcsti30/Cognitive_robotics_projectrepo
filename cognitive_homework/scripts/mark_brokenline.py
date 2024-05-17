@@ -16,7 +16,7 @@ rate = rospy.Rate(10)        # Set the Hz of the operation of the node
 
 count = 0                    # Count the number of markers
 
-memorytime = 30              # Markers will be deleted after this time [sec]
+memorytime = 10               # Markers will be deleted after this time [sec]
 
 markerArray = MarkerArray()  # We will send this array to Rviz
 
@@ -78,7 +78,7 @@ while not rospy.is_shutdown():
    marker.pose.position.z = 0 
 
    # Insert new marker when there is a broken line (only after initialization)
-   if(marker.pose.position.x != 0 and vel_data.linear.x == 0.05):
+   if(marker.pose.position.x != 0 and vel_data.linear.x == 0.22):
          markerArray.markers.append(marker)
          count += 1
 

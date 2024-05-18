@@ -39,10 +39,14 @@ git clone https://github.com/zcsti30/Cognitive_robotics_projectrepo
 ```
 
 3. Beleírni a .bashrc fájlba a Gazebo modellek elérési útját: 
-
+```console
 export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Cognitive_robotics_projectrepo/cognitive_homework/gazebo_models/
+```
 
-4. catkin_make parancs kiadása a catkin workspace-en belül.
+4. Fordítani a catkin workspace-t.
+```console
+catkin_make
+```
 
 # Használat:
 
@@ -50,15 +54,21 @@ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/catkin_ws/src/Cognitive_robotics_p
 
 2. Az egyik terminálban el kell indítani a szimulációt:
 
+```console
 roslaunch cognitive_homework simulation_line_follow.launch
+```
 
 3. A második terminálban el kell indítani az Rviz-ben való rajzolást:
 
+```console
 rosrun cognitive_homework mark_brokenline.py
+```
 
 4. A harmadik terminálban el kell indítani a vonalkövetést:
 
+```console
 rosrun cognitive_homework line_follower_cnn.py
+```
 
 # Fejlesztési lépések:
 A teljes feladatot felosztottuk a csapaton belül, ismertetjük a különálló fejlesztési lépéseket.

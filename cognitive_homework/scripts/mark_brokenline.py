@@ -25,7 +25,7 @@ testTime = 0
 while not testTime:
     testTime = rospy.Time.now()
 
-# init delete markerArray and marker
+# Init delete markerArray and marker
 deleteArray = MarkerArray()
 deletemarker = Marker()
 deletemarker.header.frame_id = "odom"

@@ -27,5 +27,3 @@ vagy mondjuk
 3.2. távirányítóval irányítani a robotot
 
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py
-
-Zoli update

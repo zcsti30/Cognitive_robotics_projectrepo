@@ -53,6 +53,15 @@ sudo apt install ros-noetic-compressed-image-transport
 sudo apt install ros-noetic-teleop-twist-keyboard
 ``` 
 
+- opencv-python (wiki: https://pypi.org/project/opencv-python/ https://opencv.org/)
+```console
+pip install opencv-python
+``` 
+- tensorflow 2.9.2 (wiki: https://www.tensorflow.org/versions/r2.9/api_docs/python/tf)
+```console
+pip install tensorflow==2.9.2
+``` 
+
 2. Klónozni a projekt repository-t a /catkin_ws/src mappába. Az útvonal fontos!
 ```console
 git clone https://github.com/zcsti30/Cognitive_robotics_projectrepo

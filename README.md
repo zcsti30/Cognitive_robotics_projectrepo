@@ -103,7 +103,7 @@ rosrun cognitive_homework line_follower_cnn.py
 A teljes feladatot felosztottuk a csapaton belül, ismertetjük a különálló fejlesztési lépéseket.
 
 ## Pályakészítés (Csóti Zoltán)
-A Turtlebot3 csomagjait használtuk, így a robotot nem kellett megtervezni. Azonban a feladat megvalósítása igényelt egy saját pályát. Első lépésként megterveztem az utat Blenderben. Egy fekete tégletest elem közepét fehér színre színeztem (a követendő vonalat reprezentálva), majd egy Bezier-görbe mentén végigpásztáztam a testet.
+A Turtlebot3 csomagjait használtuk, így a robotot nem kellett megtervezni. Azonban a feladat megvalósítása igényelt egy saját pályát. Első lépésként megterveztem az utat Blenderben. Egy fekete téglatest elem közepét fehér színre színeztem (a követendő vonalat reprezentálva), majd egy Bezier-görbe mentén végigpásztáztam a testet.
 
 ![][image4]
 
@@ -131,7 +131,7 @@ Praktikus a node operációs frekvenciáját összhangban  megválasztani a funk
 A count változó a markerek számát fogja számon tartani.
 A kódban az is beállítható, hogy hány másodperc után törölje a program a régi markereket. A feladat például a második körben elvárja, hogy egy pontban cseréljük le a szakadást sima vonalra, illetve tegyünk szakadást máshova. Ahhoz, hogy ezt megfelelően illusztálni tudjuk, meg kell győződnünk arről, hogy az első kör által detektált adatok nem folynak át a második körbe. A node-unk a régi markereit a beállított idő elteltével törli, így ez nem fog problémát jelenteni.
 
-Ahhoz, hogy ezt a metódust használni tudjuk, meg kell győződnünk arról, hogy az időzítés megfelelően elindult a futtatás során. Ebbő az okból a program elején egy while ciklussal bizonyosodunk meg arról, hogy az időzítés inicializálódott, vagyis a rospy.Time.now() nem nulla értéket ad. Erre azért van szükség, mert a timer néha későn inicializálódik, ezért az első pár futásnál nem lenne értéke.
+Ahhoz, hogy ezt a metódust használni tudjuk, meg kell győződnünk arról, hogy az időzítés megfelelően elindult a futtatás során. Ebből az okból a program elején egy while ciklussal bizonyosodunk meg arról, hogy az időzítés inicializálódott, vagyis a rospy.Time.now() nem nulla értéket ad. Erre azért van szükség, mert a timer néha későn inicializálódik, ezért az első pár futásnál nem lenne értéke.
 
 Minden iterációban töröljük az összes kijelzett markert, majd összeállítjuk az akkor kijelezni kívánt markerek új listáját, majd végül azt közöljük az Rviz-zel. Ehhez használjuk a deletemarker és deleteArray változókat.
 
